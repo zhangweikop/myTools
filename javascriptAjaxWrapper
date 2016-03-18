@@ -1,0 +1,33 @@
+function makeRequest(url, cb) {
+    var myhttpRequest = new XMLHttpRequest();
+
+    if (!myhttpRequest) {
+      
+      return false;
+    }
+    console.log('create ajax:'+url)
+    myhttpRequest.onreadystatechange = function(){alertContents(myhttpRequest, cb);};
+    myhttpRequest.open('GET', url);
+    myhttpRequest.send();
+  }
+
+  function alertContents(myhttpRequest, cb) {
+    if (myhttpRequest.readyState === XMLHttpRequest.DONE) {
+      if (myhttpRequest.status === 200) {
+        var data = (myhttpRequest.responseText);
+        cb(data);
+      } else {
+        
+      }
+    }
+  }
+
+for(var i =0; i < 22; i++){
+    makeRequest(
+        "/",
+        (function(index){
+           return function(data){ 
+                    console.log(index);
+                  }
+        })(i))
+}
